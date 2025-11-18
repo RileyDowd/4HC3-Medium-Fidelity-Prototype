@@ -1,12 +1,21 @@
 import { GoogleGenAI } from "@google/genai";
 import { StudyPlace } from '../types';
 
-// Initialize the Gemini AI client
-// process.env.API_KEY is guaranteed to be available by the runtime environment
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Create the Gemini client lazily so missing keys don't crash the app in production.
+const getClient = () => {
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY 
+    || import.meta.env.GEMINI_API_KEY 
+    || process.env.GEMINI_API_KEY 
+    || process.env.API_KEY;
+  if (!apiKey) return null;
+  return new GoogleGenAI({ apiKey });
+};
 
 export const generatePlaceDescription = async (name: string, tags: string[]): Promise<string> => {
   try {
+    const ai = getClient();
+    if (!ai) return "A great place to study on campus.";
+
     const model = 'gemini-2.5-flash';
     const prompt = `
       Write a short, engaging description (max 2 sentences) for a university study spot named "${name}".
@@ -28,6 +37,22 @@ export const generatePlaceDescription = async (name: string, tags: string[]): Pr
 
 export const getSmartRecommendations = async (query: string, places: StudyPlace[]): Promise<string> => {
   try {
+    const ai = getClient();
+    if (!ai) {
+      console.warn("Gemini API key missing; returning offline recommendations");
+      // Lightweight offline fallback based on simple matching.
+      const q = query.toLowerCase();
+      const ranked = places.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.type.toLowerCase().includes(q) ||
+        p.description.toLowerCase().includes(q)
+      ).slice(0, 3);
+      if (ranked.length === 0) {
+        return "I couldn't reach the AI right now, but try browsing the list or using filters!";
+      }
+      return `I don't have AI access right now, but based on your search, you might like: ${ranked.map(p => p.name).join(', ')}.`;
+    }
+
     const model = 'gemini-2.5-flash';
     
     // Create a lightweight context of the available places
