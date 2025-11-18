@@ -1,0 +1,102 @@
+import { StudyPlace, PlaceType, NoiseLevel } from './types';
+
+export const INITIAL_PLACES: StudyPlace[] = [
+  {
+    id: '1',
+    name: 'Central Library - 4th Floor',
+    type: PlaceType.LIBRARY,
+    description: 'The silent study zone with individual carrels. Perfect for deep focus work during finals week.',
+    image: 'https://picsum.photos/800/600?random=1',
+    rating: 4.8,
+    reviewCount: 124,
+    noiseLevel: NoiseLevel.SILENT,
+    hasOutlets: true,
+    hasWifi: true,
+    hasFood: false,
+    isOpenLate: true,
+    isCrowded: true,
+    reviews: [
+      { id: 'r1', placeId: '1', userName: 'Alex M.', rating: 5, text: 'Absolute silence. Love it.', timestamp: Date.now() - 100000 }
+    ]
+  },
+  {
+    id: '2',
+    name: 'The Bean & Leaf Cafe',
+    type: PlaceType.CAFE,
+    description: 'Bustling campus cafe with great espresso and large communal tables. Good for group projects if you dont mind the noise.',
+    image: 'https://picsum.photos/800/600?random=2',
+    rating: 4.2,
+    reviewCount: 89,
+    noiseLevel: NoiseLevel.LIVELY,
+    hasOutlets: false,
+    hasWifi: true,
+    hasFood: true,
+    isOpenLate: false,
+    isCrowded: true,
+    reviews: []
+  },
+  {
+    id: '3',
+    name: 'Engineering Quad Garden',
+    type: PlaceType.OUTDOOR,
+    description: 'A hidden gem behind the engineering building. Wifi signal is surprisingly strong, and the benches are comfortable.',
+    image: 'https://picsum.photos/800/600?random=3',
+    rating: 4.5,
+    reviewCount: 32,
+    noiseLevel: NoiseLevel.MODERATE,
+    hasOutlets: false,
+    hasWifi: true,
+    hasFood: false,
+    isOpenLate: false,
+    isCrowded: false,
+    reviews: []
+  },
+  {
+    id: '4',
+    name: 'Student Union 2nd Floor Lounge',
+    type: PlaceType.LOUNGE,
+    description: 'Comfy sofas and plenty of natural light. Can get noisy during lunch hours.',
+    image: 'https://picsum.photos/800/600?random=4',
+    rating: 3.9,
+    reviewCount: 210,
+    noiseLevel: NoiseLevel.MODERATE,
+    hasOutlets: true,
+    hasWifi: true,
+    hasFood: true,
+    isOpenLate: true,
+    isCrowded: true,
+    reviews: []
+  },
+  {
+    id: '5',
+    name: 'Old Main Reading Room',
+    type: PlaceType.LIBRARY,
+    description: 'Harry Potter vibes with high ceilings and antique lamps. Very strict quiet policy.',
+    image: 'https://picsum.photos/800/600?random=5',
+    rating: 4.9,
+    reviewCount: 56,
+    noiseLevel: NoiseLevel.SILENT,
+    hasOutlets: true,
+    hasWifi: true,
+    hasFood: false,
+    isOpenLate: false,
+    isCrowded: false,
+    reviews: []
+  },
+  {
+    id: '6',
+    name: 'Science Center Atrium',
+    type: PlaceType.LOUNGE,
+    description: 'Modern, airy space with glass walls. Lots of power outlets built into the floor.',
+    image: 'https://picsum.photos/800/600?random=6',
+    rating: 4.4,
+    reviewCount: 78,
+    noiseLevel: NoiseLevel.QUIET,
+    hasOutlets: true,
+    hasWifi: true,
+    hasFood: true,
+    isOpenLate: true,
+    isCrowded: false,
+    reviews: []
+  }
+];
